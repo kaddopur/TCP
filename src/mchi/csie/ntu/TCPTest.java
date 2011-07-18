@@ -84,7 +84,7 @@ public class TCPTest extends Activity {
 					OutputStream out = s.getOutputStream();
 					PrintWriter output = new PrintWriter(out);
 					output.println("Hello Android!");
-					output.flush();
+					output.flush(); 
 					et_output.append("-writeToServer()\n");
 					
 					
