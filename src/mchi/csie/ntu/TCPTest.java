@@ -98,6 +98,8 @@ public class TCPTest extends Activity {
 
 					// Close connection
 					//s.close();
+					
+					//test for github
 
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
