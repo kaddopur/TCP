@@ -21,9 +21,9 @@ class LinkHandler implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		Log.e(TAG, "+LinkHandler.run()");
+		Log.i(TAG, "+LinkHandler.run()");
 		
-		Log.e(TAG, clientSocket.toString());
+		Log.i(TAG, clientSocket.toString());
 		
 		try {
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -38,9 +38,9 @@ class LinkHandler implements Runnable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.e(TAG, "IOException");
+			Log.i(TAG, "IOException");
 		}
 		
-		Log.e(TAG, "-LinkHandler.run()");
+		Log.i(TAG, "-LinkHandler.run()");
 	}
 }

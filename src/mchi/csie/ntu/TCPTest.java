@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 public class TCPTest extends Activity {
 	/** Called when the activity is first created. */
 	@Override
@@ -179,10 +180,10 @@ public class TCPTest extends Activity {
 				// TODO Auto-generated method stub
 				int serverPort = 12345;
 				
-				Log.e(TAG, "+createServer()");
+				Log.i(TAG, "+createServer()");
 				Thread th_socketListener = new Thread(new SocketListener(serverPort));
 				th_socketListener.start();
-				Log.e(TAG, "-createServer()");
+				Log.i(TAG, "-createServer()");
 				
 				
 				/*

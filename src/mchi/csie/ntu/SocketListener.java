@@ -12,7 +12,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.EditText;
 
-public class SocketListener implements Runnable {
+class SocketListener implements Runnable {
 	
 	public static final String TAG = "WIFIDev";
 	public static final int SOCKET_LISTENER_MSG = 123456789;
@@ -26,12 +26,12 @@ public class SocketListener implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		Log.e(TAG, "+SocketListener()");
+		Log.i(TAG, "+SocketListener()");
 		try {
 			// establish server socket
 			int connIndex = 0;
 			ServerSocket serverSocket = new ServerSocket(serverPort);
-			Log.e(TAG, "port:" + serverSocket.getLocalPort());
+			Log.i(TAG, "port:" + serverSocket.getLocalPort());
 
 			while (true) {
 				Socket incoming = serverSocket.accept();
@@ -54,7 +54,7 @@ public class SocketListener implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.e(TAG, "-SocketListener()");
+		Log.i(TAG, "-SocketListener()");
 		
 	}
 }
