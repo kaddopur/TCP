@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.EditText;
@@ -17,9 +18,12 @@ class SocketListener implements Runnable {
 	public static final String TAG = "WIFIDev";
 	public static final int SOCKET_LISTENER_MSG = 123456789;
 	private int serverPort;
-	
-	
-	public SocketListener(int port) {
+	final int ET_OUTPUT = 99999;
+	final Handler mainHandler;
+
+	public SocketListener(Handler mHandler, int port) {
+		// TODO Auto-generated constructor stub
+		mainHandler = mHandler;
 		serverPort = port;
 	}
 
@@ -39,7 +43,7 @@ class SocketListener implements Runnable {
 								+ connIndex
 								+ " RemoteSocketAddress:"
 								+ String.valueOf(incoming.getRemoteSocketAddress()));
-				Thread connHandle = new Thread(new LinkHandler(incoming));
+				Thread connHandle = new Thread(new LinkHandler(mainHandler, incoming));
 				connHandle.start();
 				connIndex++;
 				

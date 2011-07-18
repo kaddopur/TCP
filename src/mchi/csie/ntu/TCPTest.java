@@ -13,11 +13,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.LogRecord;
 
 import org.apache.http.conn.util.InetAddressUtils;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.DhcpInfo;
 import android.net.NetworkInfo;
@@ -26,6 +29,9 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +45,9 @@ public class TCPTest extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		final String TAG = "WIFIDev";
+		final int ET_OUTPUT = 99999;
 
 		final Button bt_client = (Button) findViewById(R.id.button1);
 		final Button bt_server = (Button) findViewById(R.id.button2);
@@ -47,6 +56,19 @@ public class TCPTest extends Activity {
 		bt_client.setText("Client");
 		bt_server.setText("Server");
 		et_output.setText("");
+		
+		
+		
+		final Handler mHandler = new Handler() {
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case ET_OUTPUT:
+					et_output.append((String)msg.obj);
+					break;
+				}
+			}
+		};
+		
 
 		bt_client.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -156,7 +178,7 @@ public class TCPTest extends Activity {
 		
 		bt_server.setOnClickListener(new View.OnClickListener() {
 			
-			public final String TAG = "WIFIDev";
+			
 
 			@Override
 			public void onClick(View v) {
@@ -181,7 +203,7 @@ public class TCPTest extends Activity {
 				int serverPort = 12345;
 				
 				Log.i(TAG, "+createServer()");
-				Thread th_socketListener = new Thread(new SocketListener(serverPort));
+				Thread th_socketListener = new Thread(new SocketListener(mHandler, serverPort));
 				th_socketListener.start();
 				Log.i(TAG, "-createServer()");
 				
@@ -255,6 +277,6 @@ public class TCPTest extends Activity {
 				}
 			}
 		});
-
 	}
+		
 }
